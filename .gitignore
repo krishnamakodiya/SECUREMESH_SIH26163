@@ -1,0 +1,19 @@
+.DS_Store
+trustmesh-mvp.zip
+.env
+.env.*
+!.env.example
+
+# TRUSTMESH local Python environment and caches
+trustmesh/.venv/
+trustmesh/.pytest_cache/
+trustmesh/__pycache__/
+trustmesh/app/__pycache__/
+
+# Local reports that are intentionally generated during demos
+*.log
+
+# World Monitor local development output
+worldmonitor/.vercel/
+worldmonitor/dist/
+worldmonitor/node_modules/

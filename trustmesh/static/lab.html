@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TRUSTMESH Controlled Lab</title>
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<div class="shell narrow">
+  <header class="topbar">
+    <div><div class="eyebrow">TRUSTMESH CONTROLLED SECURITY LAB</div><h1>MCP <span>CANARY</span></h1></div>
+    <div class="target-pill">MODE: __LAB_MODE__</div>
+  </header>
+  <main>
+    <section class="panel">
+      <div class="section-label">SAFE TEST CREDENTIAL</div>
+      <div class="canary">TRUSTMESH_CANARY_2026</div>
+      <p>This is a synthetic credential for demonstrating the persistence test. Never use a real API key.</p>
+      <button class="primary" onclick="saveCanary()">SAVE TEST MCP CONFIG</button>
+      <button class="secondary" onclick="inspectStorage()">INSPECT STORAGE</button>
+      <button class="secondary" onclick="clearStorage()">CLEAR TEST DATA</button>
+    </section>
+    <section class="panel">
+      <div class="section-label">RUNTIME RESULT</div>
+      <div id="result" class="finding-box">No test executed.</div>
+      <pre id="raw"></pre>
+    </section>
+  </main>
+</div>
+<script>
+const MODE='__LAB_MODE__';
+const KEY='wm-mcp-panels';
+const CANARY='TRUSTMESH_CANARY_2026';
+function saveCanary(){
+  const spec={id:'mcp-test',title:'TrustMesh Lab',serverUrl:'http://localhost:9999/mcp',customHeaders:MODE==='vulnerable'?{Authorization:'Bearer '+CANARY}:{},toolName:'status',toolArgs:{},refreshIntervalMs:60000};
+  localStorage.setItem(KEY,JSON.stringify([spec]));
+  inspectStorage();
+}
+async function inspectStorage(){
+  const raw=localStorage.getItem(KEY)||'';
+  const present=raw.includes(CANARY);
+  const parsed=(()=>{try{return JSON.parse(raw)}catch{return raw}})();
+  const status=MODE==='vulnerable'&&present?'FAIL — canary persisted':'PASS — no reusable canary persisted';
+  document.getElementById('result').innerHTML='<strong>'+status+'</strong>';
+  document.getElementById('result').className='finding-box '+(present&&MODE==='vulnerable'?'bad':'good');
+  document.getElementById('raw').textContent=JSON.stringify(parsed,null,2);
+  try{await fetch('/api/lab/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode:MODE,key:CANARY,canary_present:present,persisted_value:parsed,timestamp:new Date().toISOString()})})}catch(e){}
+}
+function clearStorage(){localStorage.removeItem(KEY);document.getElementById('result').textContent='Storage cleared.';document.getElementById('raw').textContent='';}
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "id": "WM-SEC-001",
+  "status": "CANDIDATE",
+  "title": "MCP credential persistence in browser storage",
+  "severity": "TBD",
+  "affected_component": "MCP connection persistence",
+  "security_invariant": "Reusable authentication material must not be persisted in browser localStorage.",
+  "source_evidence": [
+    "The MCP store model includes authentication headers and/or API key fields.",
+    "The MCP store writes connection configuration to browser localStorage.",
+    "The storage key is wm-mcp-panels.",
+    "The local World Monitor checkout contains the MCP proxy route for request replay context."
+  ],
+  "runtime_evidence": {
+    "mode": "patched",
+    "key": "[REDACTED]",
+    "canary_present": false,
+    "persisted_value": {
+      "Authorization": "[REDACTED]"
+    },
+    "storage_key": "wm-mcp-panels",
+    "timestamp": "2026-09-29T00:00:00Z",
+    "synthetic_canary": true,
+    "received_at": "2026-09-29T15:39:03.603732+00:00",
+    "evidence_hash": "f4445b210f3ae548afdc63f3d4cab6b8276671d4ab394ab5d116d35febf85233"
+  },
+  "classification": "source_candidate_or_controlled_lab",
+  "remediation": "Persist only non-sensitive MCP metadata. Keep credentials out of localStorage and inject them at request time from a protected credential mechanism.",
+  "regression": "Store a synthetic canary and assert that wm-mcp-panels contains no reusable credential material."
+}

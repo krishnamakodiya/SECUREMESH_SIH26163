@@ -1,0 +1,15 @@
+{
+  "finding_id": "WM-SEC-001",
+  "before": {
+    "label": "VULNERABLE LAB",
+    "result": "FAIL",
+    "detail": "Synthetic canary remains in localStorage after save and reload."
+  },
+  "after": {
+    "label": "PATCHED LAB",
+    "result": "PASS",
+    "detail": "Only non-sensitive metadata persists; canary is absent after reload."
+  },
+  "rerun_at": "2026-09-29T15:39:03.594259+00:00",
+  "evidence_hash": "4829c1ba07afeb8c039d915afb08449ffaeecd06e34d0d6a2bd89446301f51e1"
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TRUSTMESH | Security Command Center</title>
+<link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">TM</span><span>TRUSTMESH</span></div>
+    <div class="scope"><span class="live-dot"></span><div><b>LOCAL / AUTHORIZED</b><small>World Monitor assessment</small></div></div>
+    <nav id="nav" aria-label="Assessment views">
+      <button class="nav-item active" data-view="overview">⌂ <span>Command center</span></button>
+      <button class="nav-item" data-view="target">◈ <span>Target / environment</span></button>
+      <button class="nav-item" data-view="surface">⌁ <span>Attack surface</span></button>
+      <button class="nav-item" data-view="graph">⌘ <span>Trust graph</span></button>
+      <button class="nav-item" data-view="identity">◎ <span>Identity twin</span></button>
+      <button class="nav-item" data-view="tests">▷ <span>Security tests</span></button>
+      <button class="nav-item" data-view="integrity">◇ <span>Intelligence integrity</span></button>
+      <button class="nav-item" data-view="findings">! <span>Findings</span></button>
+      <button class="nav-item" data-view="evidence">▤ <span>Evidence ledger</span></button>
+      <button class="nav-item" data-view="replay">↻ <span>Replay / verify</span></button>
+      <button class="nav-item" data-view="lab">⚗ <span>Controlled lab</span></button>
+    </nav>
+    <div class="sidebar-foot"><small>TRUSTMESH 0.1.0</small><small>synthetic identities only</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><div class="kicker">SECURITY ASSESSMENT WORKSPACE</div><h1 id="page-title">Security command center</h1></div><div class="top-actions"><span class="commit" id="commit">WM 2.10.0 · ccc2219</span><button class="icon-btn" id="refresh" title="Refresh assessment">↻</button></div></header>
+    <div id="notice" class="notice" hidden></div>
+    <div id="content"></div>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
